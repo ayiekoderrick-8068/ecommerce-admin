@@ -7,7 +7,7 @@ describe('NavBar', () => {
     render(<MemoryRouter><NavBar /></MemoryRouter>);
     expect(screen.getByText('Home')).toBeInTheDocument();
     expect(screen.getByText('Products')).toBeInTheDocument();
-    expect(screen.getByText('Add Product')).toBeInTheDocument();
+    expect(screen.getByText('Cart')).toBeInTheDocument();
   });
 
   it('Home link points to /', () => {

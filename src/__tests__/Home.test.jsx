@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import Home from '../pages/Home';
 
@@ -13,18 +13,18 @@ beforeEach(() => {
 });
 
 describe('Home', () => {
-  it('renders the dashboard heading', () => {
+  it('renders the dashboard heading', async () => {
     render(<MemoryRouter><Home /></MemoryRouter>);
-    expect(screen.getByText('Welcome to Wetin-Mart')).toBeInTheDocument();
+    await waitFor(() => expect(screen.getByText('Welcome to Wetin-Mart')).toBeInTheDocument());
   });
 
-  it('renders View Products link', () => {
+  it('renders View Products link', async () => {
     render(<MemoryRouter><Home /></MemoryRouter>);
-    expect(screen.getByText('View Products')).toBeInTheDocument();
+    await waitFor(() => expect(screen.getByText('View Products')).toBeInTheDocument());
   });
 
-  it('renders Add Product link', () => {
+  it('renders Add Product link', async () => {
     render(<MemoryRouter><Home /></MemoryRouter>);
-    expect(screen.getByText('+ Add Product')).toBeInTheDocument();
+    await waitFor(() => expect(screen.getByText('+ Add Product')).toBeInTheDocument());
   });
 });
