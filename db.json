@@ -1,0 +1,71 @@
+{
+  "store_info": [
+    {
+      "id": "1",
+      "name": "Wetin-Mart",
+      "description": "Your one-stop shop for electronics, fashion, fitness, and more.",
+      "phone_number": "555-1234",
+      "email": "admin@wetinmart.com",
+      "address": "12 Market Street, Lagos"
+    }
+  ],
+  "products": [
+    {
+      "id": "2",
+      "name": "Wireless Headphones",
+      "price": 149,
+      "category": "Electronics",
+      "stock": 35,
+      "description": "Noise cancelling over-ear headphones with 30hr battery life."
+    },
+    {
+      "id": "4",
+      "name": "Coffee Maker",
+      "price": 59,
+      "category": "Kitchen",
+      "stock": 20,
+      "description": "12-cup programmable coffee maker with auto shut-off."
+    },
+    {
+      "id": "5",
+      "name": "Mechanical Keyboard",
+      "price": 119,
+      "category": "Electronics",
+      "stock": 18,
+      "description": "Compact TKL mechanical keyboard with RGB backlight."
+    },
+    {
+      "id": "6",
+      "name": "Yoga Mat",
+      "price": 35,
+      "category": "Fitness",
+      "stock": 60,
+      "description": "Non-slip eco-friendly yoga mat, 6mm thick."
+    },
+    {
+      "id": "7",
+      "name": "Desk Lamp",
+      "price": 45,
+      "category": "Home",
+      "stock": 25,
+      "description": "LED desk lamp with adjustable brightness and USB charging port."
+    },
+    {
+      "id": "8",
+      "name": "Backpack",
+      "price": 75,
+      "category": "Accessories",
+      "stock": 40,
+      "description": "Water resistant 30L backpack with laptop compartment."
+    },
+    {
+      "name": "fish",
+      "price": 250,
+      "category": "food",
+      "stock": 20,
+      "description": "fresh food\n",
+      "id": "NmTqZOUULxI"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
