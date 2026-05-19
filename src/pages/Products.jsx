@@ -94,6 +94,11 @@ function Products() {
           </form>
         ) : (
           <div style={{ marginTop: "20px" }}>
+            <img
+              src={product.image || "https://via.placeholder.com/420x260.png?text=Product"}
+              alt={product.name}
+              style={{ width: "100%", maxHeight: "320px", objectFit: "cover", borderRadius: "12px", marginBottom: "16px" }}
+            />
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
               <h1 style={{ margin: 0 }}>{product.name}</h1>
               <span style={{ background: "#e0e7ff", color: "#4f46e5", padding: "4px 12px", borderRadius: "20px", fontSize: "13px" }}>{product.category}</span>

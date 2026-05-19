@@ -44,6 +44,11 @@ function Product({ product }) {
         gap: "8px",
       }}
     >
+      <img
+        src={product.image || "https://via.placeholder.com/420x260.png?text=Product"}
+        alt={product.name}
+        style={{ width: "100%", borderRadius: "10px", objectFit: "cover", height: "180px" }}
+      />
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <span
           style={{
