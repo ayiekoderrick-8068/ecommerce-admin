@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
+import { initialProducts } from "../data/products";
 
 function useFetchProducts(url) {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState(initialProducts);
 
   useEffect(() => {
     fetch(url)
@@ -10,6 +11,10 @@ function useFetchProducts(url) {
       })
       .then(function (data) {
         setProducts(data);
+      })
+      .catch(function (error) {
+        console.log("Failed to fetch products from server, using initial data");
+        setProducts(initialProducts);
       });
   }, [url]);
 
