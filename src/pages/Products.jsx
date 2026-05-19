@@ -1,90 +1,23 @@
-import { useState } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
-import useFetchProducts from "../hooks/useFetchProducts";
+import { useState, useEffect } from "react";
+import { useParams, useNavigate, useLocation, Link } from "react-router-dom";
+import useLocalProducts from "../hooks/useLocalProducts";
 import ProductCard from "../Components/Product";
 import SearchBar from "../Components/SearchBar";
-
-const coffeeProducts = [
-  {
-    id: "1",
-    name: "Vanilla Bean",
-    price: 850,
-    category: "Coffee",
-    stock: 50,
-    description: "Medium Roast, nutty flavor",
-    origin: "Columbia",
-  },
-  {
-    id: "2",
-    name: "House Blend",
-    price: 950,
-    category: "Coffee",
-    stock: 45,
-    description: "Dark Roast, Rich flavor",
-    origin: "Vietnam",
-  },
-  {
-    id: "3",
-    name: "Wireless Headphones",
-    price: 149,
-    category: "Electronics",
-    stock: 35,
-    description: "Noise cancelling over-ear headphones with 30hr battery life.",
-  },
-  {
-    id: "4",
-    name: "Coffee Maker",
-    price: 59,
-    category: "Kitchen",
-    stock: 20,
-    description: "12-cup programmable coffee maker with auto shut-off.",
-  },
-  {
-    id: "5",
-    name: "Mechanical Keyboard",
-    price: 119,
-    category: "Electronics",
-    stock: 18,
-    description: "Compact TKL mechanical keyboard with RGB backlight.",
-  },
-  {
-    id: "6",
-    name: "Yoga Mat",
-    price: 35,
-    category: "Fitness",
-    stock: 60,
-    description: "Non-slip eco-friendly yoga mat, 6mm thick.",
-  },
-  {
-    id: "7",
-    name: "Desk Lamp",
-    price: 45,
-    category: "Home",
-    stock: 25,
-    description: "LED desk lamp with adjustable brightness and USB charging port.",
-  },
-  {
-    id: "8",
-    name: "Backpack",
-    price: 75,
-    category: "Accessories",
-    stock: 40,
-    description: "Water resistant 30L backpack with laptop compartment.",
-  },
-];
 
 function Products() {
   const { id } = useParams();
   const navigate = useNavigate();
-
-  const embeddedProducts = coffeeProducts;
-  const addedProducts = JSON.parse(localStorage.getItem("addedProducts") || "[]");
-  const allProducts = [...embeddedProducts, ...addedProducts];
-
-  const [products, setProducts] = useState(allProducts);
+  const location = useLocation();
+  const { products, updateProduct, deleteProduct } = useLocalProducts();
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [editing, setEditing] = useState(false);
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const category = params.get("category") || "All";
+    setSelectedCategory(category);
+  }, [location.search]);
   const [form, setForm] = useState({
     name: "",
     price: "",
@@ -129,29 +62,15 @@ function Products() {
         stock: Number(form.stock),
         description: form.description,
       };
-      fetch("http://localhost:3001/products/" + id, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updatedProduct),
-      })
-        .then(function (response) { return response.json(); })
-        .then(function (savedProduct) {
-          const updatedList = products.map(function (p) {
-            if (String(p.id) === String(id)) return savedProduct;
-            return p;
-          });
-          setProducts(updatedList);
-          setEditing(false);
-        });
+      updateProduct(id, updatedProduct);
+      setEditing(false);
     }
 
     function handleDelete() {
       const confirmed = window.confirm("Are you sure you want to delete " + product.name + "?");
       if (!confirmed) return;
-      fetch("http://localhost:3001/products/" + id, { method: "DELETE" }).then(function () {
-        setProducts(products.filter(function (p) { return String(p.id) !== String(id); }));
-        navigate("/products");
-      });
+      deleteProduct(id);
+      navigate("/products");
     }
 
     return (

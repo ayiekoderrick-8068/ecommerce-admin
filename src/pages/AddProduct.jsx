@@ -1,4 +1,5 @@
 import { useState } from "react";
+import useLocalProducts from "../hooks/useLocalProducts";
 
 function AddProduct() {
   const [name, setName] = useState("");
@@ -7,6 +8,7 @@ function AddProduct() {
   const [stock, setStock] = useState("");
   const [description, setDescription] = useState("");
   const [success, setSuccess] = useState(false);
+  const { addProduct } = useLocalProducts();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -20,9 +22,7 @@ function AddProduct() {
       description: description,
     };
 
-    const savedProducts = JSON.parse(localStorage.getItem("addedProducts") || "[]");
-    savedProducts.push(newProduct);
-    localStorage.setItem("addedProducts", JSON.stringify(savedProducts));
+    addProduct(newProduct);
 
     setName("");
     setPrice("");
