@@ -7,6 +7,7 @@ function AddProduct() {
   const [category, setCategory] = useState("");
   const [stock, setStock] = useState("");
   const [description, setDescription] = useState("");
+  const [image, setImage] = useState("");
   const [success, setSuccess] = useState(false);
   const { addProduct } = useLocalProducts();
 
@@ -20,6 +21,7 @@ function AddProduct() {
       category: category,
       stock: Number(stock),
       description: description,
+      image: image || "https://via.placeholder.com/420x260.png?text=Product",
     };
 
     addProduct(newProduct);
@@ -100,6 +102,13 @@ function AddProduct() {
           onChange={function (e) { setDescription(e.target.value); }}
           rows={3}
           style={{ ...inputStyle, resize: "vertical" }}
+        />
+        <input
+          type="text"
+          placeholder="Image URL (optional)"
+          value={image}
+          onChange={function (e) { setImage(e.target.value); }}
+          style={inputStyle}
         />
         <button
           type="submit"

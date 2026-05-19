@@ -3,9 +3,7 @@ import { MemoryRouter } from 'react-router-dom';
 import AddProduct from '../pages/AddProduct';
 
 beforeEach(() => {
-  global.fetch = vi.fn(() =>
-    Promise.resolve({ json: () => Promise.resolve({}) })
-  );
+  localStorage.clear();
 });
 
 describe('AddProduct', () => {
@@ -16,17 +14,21 @@ describe('AddProduct', () => {
     expect(screen.getByRole('button', { name: 'Add Product' })).toBeInTheDocument();
   });
 
-  it('submits the form and calls fetch with POST', async () => {
+  it('submits the form and saves the product locally', async () => {
     render(<MemoryRouter><AddProduct /></MemoryRouter>);
     fireEvent.change(screen.getByPlaceholderText('Product Name'), { target: { value: 'Tablet' } });
     fireEvent.change(screen.getByPlaceholderText('Price (KSh)'), { target: { value: '200' } });
+    fireEvent.change(screen.getByPlaceholderText('Category (e.g. Electronics)'), { target: { value: 'Electronics' } });
+    fireEvent.change(screen.getByPlaceholderText('Stock quantity'), { target: { value: '5' } });
+    fireEvent.change(screen.getByPlaceholderText('Product description'), { target: { value: 'A new tablet.' } });
+    fireEvent.change(screen.getByPlaceholderText('Image URL (optional)'), { target: { value: 'https://example.com/tablet.png' } });
     fireEvent.click(screen.getByRole('button', { name: 'Add Product' }));
 
     await waitFor(() => {
-      expect(global.fetch).toHaveBeenCalledWith(
-        'http://localhost:3001/products',
-        expect.objectContaining({ method: 'POST' })
-      );
+      expect(screen.getByText('Product added successfully!')).toBeInTheDocument();
+      const storedProducts = JSON.parse(localStorage.getItem('addedProducts'));
+      expect(storedProducts).toHaveLength(1);
+      expect(storedProducts[0]).toMatchObject({ name: 'Tablet', category: 'Electronics', price: 200, stock: 5, image: 'https://example.com/tablet.png' });
     });
   });
 });
