@@ -8,7 +8,7 @@ const coffeeProducts = [
   {
     id: "1",
     name: "Vanilla Bean",
-    price: 10.00,
+    price: 850,
     category: "Coffee",
     stock: 50,
     description: "Medium Roast, nutty flavor",
@@ -17,7 +17,7 @@ const coffeeProducts = [
   {
     id: "2",
     name: "House Blend",
-    price: 12.00,
+    price: 950,
     category: "Coffee",
     stock: 45,
     description: "Dark Roast, Rich flavor",
