@@ -4,11 +4,32 @@ import useFetchProducts from "../hooks/useFetchProducts";
 import ProductCard from "../Components/Product";
 import SearchBar from "../Components/SearchBar";
 
+const coffeeProducts = [
+  {
+    id: "1",
+    name: "Vanilla Bean",
+    price: 10.00,
+    category: "Coffee",
+    stock: 50,
+    description: "Medium Roast, nutty flavor",
+    origin: "Columbia",
+  },
+  {
+    id: "2",
+    name: "House Blend",
+    price: 12.00,
+    category: "Coffee",
+    stock: 45,
+    description: "Dark Roast, Rich flavor",
+    origin: "Vietnam",
+  },
+];
+
 function Products() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [products, setProducts] = useFetchProducts("http://localhost:3001/products");
+  const [products, setProducts] = useState(coffeeProducts);
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [editing, setEditing] = useState(false);
