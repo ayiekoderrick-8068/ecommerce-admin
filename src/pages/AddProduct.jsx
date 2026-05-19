@@ -12,6 +12,7 @@ function AddProduct() {
     e.preventDefault();
 
     const newProduct = {
+      id: Date.now().toString(),
       name: name,
       price: Number(price),
       category: category,
@@ -19,23 +20,19 @@ function AddProduct() {
       description: description,
     };
 
-    fetch("http://localhost:3001/products", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newProduct),
-    }).then(function () {
-      setName("");
-      setPrice("");
-      setCategory("");
-      setStock("");
-      setDescription("");
-      setSuccess(true);
-      setTimeout(function () {
-        setSuccess(false);
-      }, 3000);
-    });
+    const savedProducts = JSON.parse(localStorage.getItem("addedProducts") || "[]");
+    savedProducts.push(newProduct);
+    localStorage.setItem("addedProducts", JSON.stringify(savedProducts));
+
+    setName("");
+    setPrice("");
+    setCategory("");
+    setStock("");
+    setDescription("");
+    setSuccess(true);
+    setTimeout(function () {
+      setSuccess(false);
+    }, 3000);
   }
 
   const inputStyle = {

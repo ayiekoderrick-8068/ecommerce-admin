@@ -70,7 +70,9 @@ const coffeeProducts = [
 ];
 
 function Categories() {
-  const products = coffeeProducts;
+  const embeddedProducts = coffeeProducts;
+  const addedProducts = JSON.parse(localStorage.getItem("addedProducts") || "[]");
+  const products = [...embeddedProducts, ...addedProducts];
 
   const allCategories = products.map(function (product) {
     return product.category;

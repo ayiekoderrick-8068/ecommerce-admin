@@ -77,7 +77,11 @@ function Products() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [products, setProducts] = useState(coffeeProducts);
+  const embeddedProducts = coffeeProducts;
+  const addedProducts = JSON.parse(localStorage.getItem("addedProducts") || "[]");
+  const allProducts = [...embeddedProducts, ...addedProducts];
+
+  const [products, setProducts] = useState(allProducts);
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [editing, setEditing] = useState(false);

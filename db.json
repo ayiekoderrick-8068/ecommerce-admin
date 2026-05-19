@@ -73,6 +73,14 @@
       "stock": 14,
       "description": "food",
       "id": "Bo9SBPdbzJw"
+    },
+    {
+      "name": "peas",
+      "price": 200,
+      "category": "food",
+      "stock": 12,
+      "description": "food stuff",
+      "id": "WFzFou1cOW8"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
