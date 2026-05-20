@@ -4,7 +4,7 @@ const embeddedProducts = [
   {
     id: "1",
     name: "Vanilla Bean",
-    price: 850,
+    price: 85,
     category: "Coffee & Beverages",
     stock: 50,
     description: "Medium Roast, nutty flavor",
@@ -14,7 +14,7 @@ const embeddedProducts = [
   {
     id: "2",
     name: "House Blend",
-    price: 950,
+    price: 95,
     category: "Coffee & Beverages",
     stock: 45,
     description: "Dark Roast, Rich flavor",
@@ -194,7 +194,6 @@ function useLocalProducts() {
       return;
     }
 
-    // If it's an embedded product, create an override in addedProducts
     const embedded = embeddedProducts.find((p) => String(p.id) === String(id));
     if (embedded) {
       const override = { ...embedded, ...updatedFields, id: String(id) };
@@ -205,7 +204,6 @@ function useLocalProducts() {
   }
 
   function deleteProduct(id) {
-    // Remove from addedProducts if exists
     let added = readAdded();
     const wasAdded = added.some((p) => String(p.id) === String(id));
     if (wasAdded) {
@@ -214,8 +212,6 @@ function useLocalProducts() {
       setProducts(buildProductList());
       return;
     }
-
-    // For embedded product, mark as deleted
     const deleted = readDeleted();
     if (!deleted.includes(String(id))) deleted.push(String(id));
     persistDeleted(deleted);
